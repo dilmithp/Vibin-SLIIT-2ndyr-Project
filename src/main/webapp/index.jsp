@@ -51,7 +51,7 @@
 					<li class="nav-item mx-0 mx-lg-1"><a
 						class="nav-link py-3 px-0 px-lg-3 rounded" href="Logout">Logout</a></li>
 					<li class="nav-item mx-0 mx-lg-1 bg-danger"><a
-						class="nav-link py-3 px-0 px-lg-3 rounded" href="#"><%=session.getAttribute("name")%></a></li>
+						class="nav-link py-3 px-0 px-lg-3 rounded" href=profile.jsp><%=session.getAttribute("name")%></a></li>
 					
 				</ul>
 			</div>
