@@ -37,6 +37,7 @@ public class Login extends HttpServlet {
             
             ResultSet rs = pst.executeQuery();
             if(rs.next()) {
+            	session.setAttribute("id", rs.getString("id"));
             	session.setAttribute("name", rs.getString("name"));
             	session.setAttribute("email", rs.getString("email"));
             	session.setAttribute("contact_no", rs.getString("contact_no"));
