@@ -1,6 +1,8 @@
 package com.vibin.dao;
 
 import com.vibin.model.Album;
+import com.vibin.model.Song;
+
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -10,11 +12,12 @@ public class AlbumDAO {
     private String jdbcUsername = "root";
     private String jdbcPassword = "root";
 
-    private static final String INSERT_ALBUM_SQL = "INSERT INTO albums (albumName, artist, releaseDate, genre) VALUES (?, ?, ?, ?)";
-    private static final String SELECT_ALBUM_BY_ID = "SELECT * FROM albums WHERE albumId = ?";
+    private static final String INSERT_ALBUM_SQL = "INSERT INTO albums (album_name, artist, release_date, genre) VALUES (?, ?, ?, ?)";
+    private static final String SELECT_ALBUM_BY_ID = "SELECT * FROM albums WHERE album_id = ?";
     private static final String SELECT_ALL_ALBUMS = "SELECT * FROM albums";
-    private static final String DELETE_ALBUM_SQL = "DELETE FROM albums WHERE albumId = ?";
-    private static final String UPDATE_ALBUM_SQL = "UPDATE albums SET albumName = ?, artist = ?, releaseDate = ?, genre = ? WHERE albumId = ?";
+    private static final String DELETE_ALBUM_SQL = "DELETE FROM albums WHERE album_id = ?";
+    private static final String UPDATE_ALBUM_SQL = "UPDATE albums SET album_name = ?, artist = ?, release_date = ?, genre = ? WHERE album_id = ?";
+    private static final String SELECT_SONGS_BY_ALBUM_ID = "SELECT * FROM songs WHERE album_id = ?";
 
     protected Connection getConnection() {
         Connection connection = null;
@@ -57,9 +60,9 @@ public class AlbumDAO {
             ResultSet rs = preparedStatement.executeQuery();
 
             while (rs.next()) {
-                String albumName = rs.getString("albumName");
+                String albumName = rs.getString("album_name");
                 String artist = rs.getString("artist");
-                Date releaseDate = rs.getDate("releaseDate");
+                Date releaseDate = rs.getDate("release_date");
                 String genre = rs.getString("genre");
                 album = new Album(id, albumName, artist, releaseDate, genre);
             }
@@ -77,10 +80,10 @@ public class AlbumDAO {
             ResultSet rs = preparedStatement.executeQuery();
 
             while (rs.next()) {
-                int id = rs.getInt("albumId");
-                String albumName = rs.getString("albumName");
+                int id = rs.getInt("album_id");
+                String albumName = rs.getString("album_name");
                 String artist = rs.getString("artist");
-                Date releaseDate = rs.getDate("releaseDate");
+                Date releaseDate = rs.getDate("release_date");
                 String genre = rs.getString("genre");
                 albums.add(new Album(id, albumName, artist, releaseDate, genre));
             }
@@ -115,6 +118,28 @@ public class AlbumDAO {
             rowDeleted = statement.executeUpdate() > 0;
         }
         return rowDeleted;
+    }
+    
+    // Get songs by album ID
+    public List<Song> getSongsByAlbumId(int albumId) {
+        List<Song> songs = new ArrayList<>();
+        try (Connection connection = getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(SELECT_SONGS_BY_ALBUM_ID)) {
+            preparedStatement.setInt(1, albumId);
+            ResultSet rs = preparedStatement.executeQuery();
+
+            while (rs.next()) {
+                int id = rs.getInt("song_id");
+                String songName = rs.getString("song_name");
+                String lyricist = rs.getString("lyricist");
+                String singer = rs.getString("singer");
+                String musicDirector = rs.getString("music_director");
+                songs.add(new Song(id, songName, lyricist, singer, musicDirector, albumId));
+            }
+        } catch (SQLException e) {
+            printSQLException(e);
+        }
+        return songs;
     }
 
     private void printSQLException(SQLException ex) {

@@ -2,6 +2,8 @@ package com.vibin.controller;
 
 import com.vibin.dao.AlbumDAO;
 import com.vibin.model.Album;
+import com.vibin.model.Song;
+
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -52,6 +54,9 @@ public class AlbumServlet extends HttpServlet {
                     break;
                 case "/update":
                     updateAlbum(request, response);
+                    break;
+                case "/view":
+                    viewAlbum(request, response);
                     break;
                 default:
                     listAlbums(request, response);
@@ -127,5 +132,17 @@ public class AlbumServlet extends HttpServlet {
         int id = Integer.parseInt(request.getParameter("id"));
         albumDAO.deleteAlbum(id);
         response.sendRedirect("list");
+    }
+    
+    private void viewAlbum(HttpServletRequest request, HttpServletResponse response)
+            throws SQLException, ServletException, IOException {
+        int id = Integer.parseInt(request.getParameter("id"));
+        Album album = albumDAO.selectAlbum(id);
+        List<Song> songs = albumDAO.getSongsByAlbumId(id);
+        
+        request.setAttribute("album", album);
+        request.setAttribute("songs", songs);
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/album-detail.jsp");
+        dispatcher.forward(request, response);
     }
 }
