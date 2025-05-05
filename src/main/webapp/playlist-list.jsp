@@ -36,30 +36,28 @@
         
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             <% 
-            try {
-                // Get user ID from session safely
-                Object userIdObj = session.getAttribute("id");
-                int userId = 0;
-                if (userIdObj != null) {
-                    if (userIdObj instanceof Integer) {
-                        userId = (Integer) userIdObj;
-                    } else if (userIdObj instanceof String) {
-                        userId = Integer.parseInt((String) userIdObj);
-                    }
-                }
-                
-                if (userId == 0) {
-                    out.println("<p class='text-red-500 col-span-3 text-center'>Please log in to view your playlists</p>");
-                } else {
-                    // Get playlists
-                    PlaylistDAO playlistDAO = new PlaylistDAO();
-                    List<Map<String, Object>> playlists = playlistDAO.getUserPlaylists(userId);
-                    
-                    if (playlists.isEmpty()) {
-                        out.println("<p class='text-gray-400 col-span-3 text-center'>You haven't created any playlists yet.</p>");
-                    } else {
-                        for(Map<String, Object> playlist : playlists) {
-            %>
+					try {
+					    // Get user ID from session safely - FIXED: using "id" instead of "userId"
+					    String userIdStr = (String) session.getAttribute("id");
+					    int userId = 0;
+					    
+					    if (userIdStr != null) {
+					        userId = Integer.parseInt(userIdStr);
+					    }
+					    
+					    if (userId == 0) {
+					        out.println("<p class='text-red-500 col-span-3 text-center'>Please log in to view your playlists</p>");
+					    } else {
+					        // Get playlists
+					        PlaylistDAO playlistDAO = new PlaylistDAO();
+					        List<Map<String, Object>> playlists = playlistDAO.getUserPlaylists(userIdStr);
+					        
+					        if (playlists.isEmpty()) {
+					            out.println("<p class='text-gray-400 col-span-3 text-center'>You haven't created any playlists yet.</p>");
+					        } else {
+					            for(Map<String, Object> playlist : playlists) {
+%>
+
                 <div class="bg-gray-800 rounded-lg shadow-xl overflow-hidden hover:bg-gray-700 transition duration-200">
                     <a href="playlist-detail.jsp?id=<%= playlist.get("playlistId") %>">
                         <div class="p-6">
