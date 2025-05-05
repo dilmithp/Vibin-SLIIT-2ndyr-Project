@@ -38,7 +38,7 @@
             <% 
             try {
                 // Get user ID from session safely
-                Object userIdObj = session.getAttribute("userId");
+                Object userIdObj = session.getAttribute("id");
                 int userId = 0;
                 if (userIdObj != null) {
                     if (userIdObj instanceof Integer) {
