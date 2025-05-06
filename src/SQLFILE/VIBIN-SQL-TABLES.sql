@@ -76,3 +76,17 @@ CREATE TABLE artists (
                          created_date DATETIME DEFAULT CURRENT_TIMESTAMP
 );
 SELECT *FROM songs;
+
+CREATE TABLE admin (
+                       admin_id INT AUTO_INCREMENT PRIMARY KEY,
+                       username VARCHAR(100) NOT NULL UNIQUE,
+                       password VARCHAR(255) NOT NULL,
+                       name VARCHAR(100) NOT NULL,
+                       email VARCHAR(100) UNIQUE,
+                       role VARCHAR(20) DEFAULT 'admin',
+                       last_login DATETIME
+);
+
+-- Insert default admin user
+INSERT INTO admin (username, password, name, email, role)
+VALUES ('admin', '123', 'System Administrator', 'admin@vibin.com', 'admin');
