@@ -42,20 +42,14 @@
                     <h2 class="text-xl font-bold"><i class="fas fa-music mr-2"></i>Song Management</h2>
                 </div>
                 <div class="p-4 space-y-2">
-                    <a href="song-list.jsp" class="block px-4 py-2 bg-gray-700 hover:bg-gray-600 rounded-md">
+                    <a href="<%=request.getContextPath()%>/songs" class="block px-4 py-2 bg-gray-700 hover:bg-gray-600 rounded-md">
                         <i class="fas fa-list mr-2"></i>Song List
                     </a>
-                    <a href="song-form.jsp" class="block px-4 py-2 bg-gray-700 hover:bg-gray-600 rounded-md">
+                    <a href="<%=request.getContextPath()%>/songs/new" class="block px-4 py-2 bg-gray-700 hover:bg-gray-600 rounded-md">
                         <i class="fas fa-plus-circle mr-2"></i>Add Song
                     </a>
                     <a href="likedSongs.jsp" class="block px-4 py-2 bg-gray-700 hover:bg-gray-600 rounded-md">
                         <i class="fas fa-heart mr-2"></i>Liked Songs
-                    </a>
-                    <a href="likeSong.jsp" class="block px-4 py-2 bg-gray-700 hover:bg-gray-600 rounded-md">
-                        <i class="fas fa-thumbs-up mr-2"></i>Like Song (Action)
-                    </a>
-                    <a href="unlikeSong.jsp" class="block px-4 py-2 bg-gray-700 hover:bg-gray-600 rounded-md">
-                        <i class="fas fa-thumbs-down mr-2"></i>Unlike Song (Action)
                     </a>
                 </div>
             </div>
@@ -66,14 +60,56 @@
                     <h2 class="text-xl font-bold"><i class="fas fa-compact-disc mr-2"></i>Album Management</h2>
                 </div>
                 <div class="p-4 space-y-2">
-                    <a href="album-list.jsp" class="block px-4 py-2 bg-gray-700 hover:bg-gray-600 rounded-md">
+                    <a href="<%=request.getContextPath()%>/albums" class="block px-4 py-2 bg-gray-700 hover:bg-gray-600 rounded-md">
                         <i class="fas fa-list mr-2"></i>Album List
                     </a>
-                    <a href="album-form.jsp" class="block px-4 py-2 bg-gray-700 hover:bg-gray-600 rounded-md">
+                    <a href="<%=request.getContextPath()%>/albums/new" class="block px-4 py-2 bg-gray-700 hover:bg-gray-600 rounded-md">
                         <i class="fas fa-plus-circle mr-2"></i>Add Album
                     </a>
-                    <a href="album-detail.jsp" class="block px-4 py-2 bg-gray-700 hover:bg-gray-600 rounded-md">
-                        <i class="fas fa-info-circle mr-2"></i>Album Details
+                </div>
+            </div>
+            
+            <!-- Playlist Management -->
+            <div class="bg-gray-800 rounded-lg shadow-xl overflow-hidden">
+                <div class="bg-yellow-600 px-4 py-3">
+                    <h2 class="text-xl font-bold"><i class="fas fa-list mr-2"></i>Playlist Management</h2>
+                </div>
+                <div class="p-4 space-y-2">
+                    <a href="playlist-list.jsp" class="block px-4 py-2 bg-gray-700 hover:bg-gray-600 rounded-md">
+                        <i class="fas fa-list mr-2"></i>My Playlists
+                    </a>
+                    <a href="playlist-form.jsp" class="block px-4 py-2 bg-gray-700 hover:bg-gray-600 rounded-md">
+                        <i class="fas fa-plus-circle mr-2"></i>Create Playlist
+                    </a>
+                </div>
+            </div>
+            
+            <!-- Artist Management -->
+            <div class="bg-gray-800 rounded-lg shadow-xl overflow-hidden">
+                <div class="bg-pink-600 px-4 py-3">
+                    <h2 class="text-xl font-bold"><i class="fas fa-user-music mr-2"></i>Artist Management</h2>
+                </div>
+                <div class="p-4 space-y-2">
+                    <a href="artist-list.jsp" class="block px-4 py-2 bg-gray-700 hover:bg-gray-600 rounded-md">
+                        <i class="fas fa-list mr-2"></i>Artist List
+                    </a>
+                    <a href="artist-form.jsp" class="block px-4 py-2 bg-gray-700 hover:bg-gray-600 rounded-md">
+                        <i class="fas fa-plus-circle mr-2"></i>Add Artist
+                    </a>
+                </div>
+            </div>
+            
+            <!-- User Management -->
+            <div class="bg-gray-800 rounded-lg shadow-xl overflow-hidden">
+                <div class="bg-red-600 px-4 py-3">
+                    <h2 class="text-xl font-bold"><i class="fas fa-users mr-2"></i>User Management</h2>
+                </div>
+                <div class="p-4 space-y-2">
+                    <a href="<%=request.getContextPath()%>/users" class="block px-4 py-2 bg-gray-700 hover:bg-gray-600 rounded-md">
+                        <i class="fas fa-list mr-2"></i>User List
+                    </a>
+                    <a href="<%=request.getContextPath()%>/users/new" class="block px-4 py-2 bg-gray-700 hover:bg-gray-600 rounded-md">
+                        <i class="fas fa-plus-circle mr-2"></i>Add User
                     </a>
                 </div>
             </div>
@@ -81,7 +117,7 @@
         
         <div class="mt-8 text-center text-gray-500">
             <p>Vibin Music Store - Testing Navigation Hub</p>
-            <p class="text-sm mt-2">Created on: May 5, 2025</p>
+            <p class="text-sm mt-2">Created on: May 6, 2025</p>
         </div>
     </div>
 </body>
