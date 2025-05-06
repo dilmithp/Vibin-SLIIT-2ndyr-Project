@@ -90,3 +90,24 @@ CREATE TABLE admin (
 -- Insert default admin user
 INSERT INTO admin (username, password, name, email, role)
 VALUES ('admin', '123', 'System Administrator', 'admin@vibin.com', 'admin');
+
+
+CREATE TABLE artist_login (
+                              id INT AUTO_INCREMENT PRIMARY KEY,
+                              username VARCHAR(100) NOT NULL UNIQUE,
+                              password VARCHAR(255) NOT NULL,
+                              artist_id INT NOT NULL,
+                              last_login DATETIME,
+                              FOREIGN KEY (artist_id) REFERENCES artists(artist_id) ON DELETE CASCADE
+);
+ALTER TABLE artist_login ADD email VARCHAR(100) UNIQUE;
+select *from artist_login;
+
+CREATE TRIGGER after_artist_signup AFTER INSERT ON artist_login
+    FOR EACH ROW
+BEGIN
+    INSERT INTO artists (artist_name, genre, created_date)
+    VALUES ((SELECT name FROM user WHERE id = NEW.artist_id),
+            'Unknown', NOW());
+END;
+ALTER TABLE artists ADD COLUMN email VARCHAR(100) UNIQUE;

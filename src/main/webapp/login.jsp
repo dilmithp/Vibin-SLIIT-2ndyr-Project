@@ -259,6 +259,7 @@
               <img src="images/signin-image.jpg" alt="sing up image">
             </figure>
             <a href="admin-login.jsp" class="signup-image-link">Admin Login</a><br>
+            <a href="artist-login.jsp" class="signup-image-link">For Artist Login</a><br>
             <a href="registration.jsp" class="signup-image-link">Create New Account</a>
           </div>
 
