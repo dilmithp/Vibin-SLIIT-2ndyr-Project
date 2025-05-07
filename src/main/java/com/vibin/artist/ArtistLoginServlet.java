@@ -37,7 +37,7 @@ public class ArtistLoginServlet extends HttpServlet {
                 session.setAttribute("userType", "artist");
                 
                 // Redirect to album list
-                response.sendRedirect("album-list.jsp");
+                response.sendRedirect("artist-dashboard.jsp");
             } else {
                 response.sendRedirect("artist-login.jsp?error=Invalid username or password");
             }
