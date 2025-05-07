@@ -16,7 +16,6 @@
     String bio = "";
     String genre = "";
     String country = "";
-    String imageUrl = "";
     
     try {
         Class.forName("com.mysql.jdbc.Driver");
@@ -36,7 +35,6 @@
             bio = rs.getString("bio") != null ? rs.getString("bio") : "";
             genre = rs.getString("genre") != null ? rs.getString("genre") : "";
             country = rs.getString("country") != null ? rs.getString("country") : "";
-            imageUrl = rs.getString("image_url") != null ? rs.getString("image_url") : "";
         }
         
         rs.close();
@@ -117,118 +115,87 @@
                     </div>
                 <% } %>
                 
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                    <!-- Profile Image -->
-                    <div class="bg-gray-800 rounded-lg shadow-xl overflow-hidden">
-                        <div class="p-6">
-                            <div class="flex justify-center mb-4">
-                                <% if (imageUrl != null && !imageUrl.isEmpty()) { %>
-                                    <img src="<%= imageUrl %>" alt="<%= artistName %>" class="h-48 w-48 rounded-full object-cover">
-                                <% } else { %>
-                                    <div class="h-48 w-48 rounded-full bg-purple-900 flex items-center justify-center text-6xl">
-                                        <i class="fas fa-user"></i>
-                                    </div>
-                                <% } %>
+                <!-- Profile Information -->
+                <div class="bg-gray-800 rounded-lg shadow-xl overflow-hidden mb-6">
+                    <div class="p-6">
+                        <h2 class="text-xl font-bold mb-4">Profile Information</h2>
+                        
+                        <form action="artist-profile-save.jsp" method="post" class="space-y-4">
+                            <div>
+                                <label for="username" class="block text-sm font-medium text-gray-400 mb-2">Username</label>
+                                <input type="text" id="username" name="username" value="<%= username %>" 
+                                       class="w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-purple-500"
+                                       disabled>
                             </div>
                             
-                            <h2 class="text-xl font-bold text-center mb-4"><%= artistName %></h2>
+                            <div>
+                                <label for="email" class="block text-sm font-medium text-gray-400 mb-2">Email</label>
+                                <input type="email" id="email" name="email" value="<%= email %>" 
+                                       class="w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-purple-500">
+                            </div>
                             
-                            <form action="artist-image-upload.jsp" method="post" enctype="multipart/form-data" class="mt-4">
-                                <div class="mb-4">
-                                    <label for="imageFile" class="block text-sm font-medium text-gray-400 mb-2">Update Profile Image</label>
-                                    <input type="file" id="imageFile" name="imageFile" accept="image/*"
-                                           class="w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-purple-500">
-                                </div>
-                                
-                                <button type="submit" class="w-full px-4 py-2 bg-purple-600 hover:bg-purple-700 rounded-lg font-medium transition duration-200">
-                                    Upload Image
+                            <div>
+                                <label for="genre" class="block text-sm font-medium text-gray-400 mb-2">Genre</label>
+                                <input type="text" id="genre" name="genre" value="<%= genre %>" 
+                                       class="w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-purple-500">
+                            </div>
+                            
+                            <div>
+                                <label for="country" class="block text-sm font-medium text-gray-400 mb-2">Country</label>
+                                <input type="text" id="country" name="country" value="<%= country %>" 
+                                       class="w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-purple-500">
+                            </div>
+                            
+                            <div>
+                                <label for="bio" class="block text-sm font-medium text-gray-400 mb-2">Biography</label>
+                                <textarea id="bio" name="bio" rows="5"
+                                          class="w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-purple-500"><%= bio %></textarea>
+                            </div>
+                            
+                            <div class="pt-4">
+                                <button type="submit" class="px-4 py-2 bg-purple-600 hover:bg-purple-700 rounded-lg font-medium transition duration-200">
+                                    Save Changes
                                 </button>
-                            </form>
-                        </div>
+                            </div>
+                        </form>
                     </div>
-                    
-                    <!-- Profile Information -->
-                    <div class="md:col-span-2 bg-gray-800 rounded-lg shadow-xl overflow-hidden">
-                        <div class="p-6">
-                            <h2 class="text-xl font-bold mb-4">Profile Information</h2>
-                            
-                            <form action="artist-profile-save.jsp" method="post" class="space-y-4">
+                </div>
+                
+                <!-- Change Password -->
+                <div class="bg-gray-800 rounded-lg shadow-xl overflow-hidden">
+                    <div class="p-6">
+                        <h2 class="text-xl font-bold mb-4">Change Password</h2>
+                        
+                        <form action="artist-password-change.jsp" method="post" class="space-y-4">
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                                 <div>
-                                    <label for="username" class="block text-sm font-medium text-gray-400 mb-2">Username</label>
-                                    <input type="text" id="username" name="username" value="<%= username %>" 
+                                    <label for="currentPassword" class="block text-sm font-medium text-gray-400 mb-2">Current Password</label>
+                                    <input type="password" id="currentPassword" name="currentPassword" 
                                            class="w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-purple-500"
-                                           disabled>
+                                           required>
                                 </div>
                                 
                                 <div>
-                                    <label for="email" class="block text-sm font-medium text-gray-400 mb-2">Email</label>
-                                    <input type="email" id="email" name="email" value="<%= email %>" 
-                                           class="w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-purple-500">
+                                    <label for="newPassword" class="block text-sm font-medium text-gray-400 mb-2">New Password</label>
+                                    <input type="password" id="newPassword" name="newPassword" 
+                                           class="w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-purple-500"
+                                           required>
                                 </div>
                                 
                                 <div>
-                                    <label for="genre" class="block text-sm font-medium text-gray-400 mb-2">Genre</label>
-                                    <input type="text" id="genre" name="genre" value="<%= genre %>" 
-                                           class="w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-purple-500">
+                                    <label for="confirmPassword" class="block text-sm font-medium text-gray-400 mb-2">Confirm New Password</label>
+                                    <input type="password" id="confirmPassword" name="confirmPassword" 
+                                           class="w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-purple-500"
+                                           required>
                                 </div>
-                                
-                                <div>
-                                    <label for="country" class="block text-sm font-medium text-gray-400 mb-2">Country</label>
-                                    <input type="text" id="country" name="country" value="<%= country %>" 
-                                           class="w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-purple-500">
-                                </div>
-                                
-                                <div>
-                                    <label for="bio" class="block text-sm font-medium text-gray-400 mb-2">Biography</label>
-                                    <textarea id="bio" name="bio" rows="5"
-                                              class="w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-purple-500"><%= bio %></textarea>
-                                </div>
-                                
-                                <div class="pt-4">
-                                    <button type="submit" class="px-4 py-2 bg-purple-600 hover:bg-purple-700 rounded-lg font-medium transition duration-200">
-                                        Save Changes
-                                    </button>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                    
-                    <!-- Change Password -->
-                    <div class="md:col-span-3 bg-gray-800 rounded-lg shadow-xl overflow-hidden">
-                        <div class="p-6">
-                            <h2 class="text-xl font-bold mb-4">Change Password</h2>
+                            </div>
                             
-                            <form action="artist-password-change.jsp" method="post" class="space-y-4">
-                                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                                    <div>
-                                        <label for="currentPassword" class="block text-sm font-medium text-gray-400 mb-2">Current Password</label>
-                                        <input type="password" id="currentPassword" name="currentPassword" 
-                                               class="w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-purple-500"
-                                               required>
-                                    </div>
-                                    
-                                    <div>
-                                        <label for="newPassword" class="block text-sm font-medium text-gray-400 mb-2">New Password</label>
-                                        <input type="password" id="newPassword" name="newPassword" 
-                                               class="w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-purple-500"
-                                               required>
-                                    </div>
-                                    
-                                    <div>
-                                        <label for="confirmPassword" class="block text-sm font-medium text-gray-400 mb-2">Confirm New Password</label>
-                                        <input type="password" id="confirmPassword" name="confirmPassword" 
-                                               class="w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-purple-500"
-                                               required>
-                                    </div>
-                                </div>
-                                
-                                <div class="pt-2">
-                                    <button type="submit" class="px-4 py-2 bg-purple-600 hover:bg-purple-700 rounded-lg font-medium transition duration-200">
-                                        Update Password
-                                    </button>
-                                </div>
-                            </form>
-                        </div>
+                            <div class="pt-2">
+                                <button type="submit" class="px-4 py-2 bg-purple-600 hover:bg-purple-700 rounded-lg font-medium transition duration-200">
+                                    Update Password
+                                </button>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
