@@ -128,9 +128,8 @@
     
     <script>
         function playSong(songId) {
-            // This would be implemented to handle song playback
+            // handle song playback
             console.log("Playing song ID: " + songId);
-            // You could update the now playing bar or redirect to a player page
         }
     </script>
 </body>
